@@ -1,12 +1,13 @@
 import {StatusBar} from 'expo-status-bar';
-import {Text, View} from 'react-native';
+import {View} from 'react-native';
+import Navigation from './Navigation';
 import styles from './styles';
 
 const App = () => {
     return (
         <View style={styles.screen}>
-            <StatusBar style="auto" />
-            <Text>test</Text>
+            <StatusBar style={'dark'} />
+            <Navigation />
         </View>
     );
 };
