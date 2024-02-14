@@ -2,23 +2,24 @@ import {StyleSheet} from 'react-native';
 import {colors} from '../../const';
 
 const styles = StyleSheet.create({
-    form: {
-        flex: 1,
-        padding: 24
+    wrapper: {
+        width: '100%',
+        aspectRatio: 16 / 9,
+        marginVertical: 16,
+        borderRadius: 4,
+        backgroundColor: colors.primary100,
+        alignItems: 'center',
+        justifyContent: 'center'
     },
-    label: {
-        fontWeight: 'bold',
-        marginBottom: 4,
-        color: colors.primary500
+    image: {
+        width: '100%',
+        height: '100%',
+        objectFit: 'cover'
     },
-    input: {
-        marginVertical: 8,
-        paddingHorizontal: 4,
-        paddingVertical: 8,
+    placeholder: {
+        color: colors.primary700,
         fontSize: 16,
-        borderBottomWidth: 2,
-        borderBottomColor: colors.primary700,
-        backgroundColor: colors.primary100
+        textAlign: 'center'
     }
 });
 
