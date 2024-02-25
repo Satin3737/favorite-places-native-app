@@ -1,29 +1,18 @@
-import {PermissionStatus, launchCameraAsync, useCameraPermissions} from 'expo-image-picker';
+import {launchCameraAsync, useCameraPermissions} from 'expo-image-picker';
 import {useState} from 'react';
-import {Alert, Button, Image, Text, View} from 'react-native';
-import CustomButton from '../ui/CustomButton';
+import {View} from 'react-native';
+import {colors} from '../../const';
+import {verifyPermissions} from '../../util/helper';
+import PickerPreview from '../PickerPreview';
+import CustomButton, {btnTypes} from '../ui/CustomButton';
 import styles from './styles';
 
 const ImagePicker = () => {
     const [cameraPermission, requestPermission] = useCameraPermissions();
     const [imageUri, setImageUri] = useState();
 
-    const verifyPermissions = async () => {
-        if (cameraPermission.status === PermissionStatus.UNDETERMINED) {
-            const permissionResponse = await requestPermission();
-            return permissionResponse.granted;
-        }
-
-        if (cameraPermission.status === PermissionStatus.DENIED) {
-            Alert.alert('Need permission!', 'You need to grant camera permissions to use app!');
-            return false;
-        }
-
-        return true;
-    };
-
     const takeImageHandler = async () => {
-        const hasPermissions = await verifyPermissions();
+        const hasPermissions = await verifyPermissions(cameraPermission, requestPermission, 'camera');
         if (!hasPermissions) {
             return;
         }
@@ -33,18 +22,15 @@ const ImagePicker = () => {
 
     return (
         <View>
-            <View style={styles.wrapper}>
-                {!!imageUri ? (
-                    <Image style={styles.image} source={{uri: imageUri}} />
-                ) : (
-                    <Text style={styles.placeholder}>Image not picked!</Text>
-                )}
-            </View>
+            <PickerPreview label={'Image'} uri={imageUri} isPicked={!!imageUri} />
             <CustomButton
                 label={!!imageUri ? 'Take another image' : 'Take image'}
+                type={btnTypes.flat}
                 iconProps={{
-                    name: 'camera'
+                    name: 'camera',
+                    color: colors.primary200
                 }}
+                buttonOuterStyles={[styles.btn]}
                 onPress={takeImageHandler}
             />
         </View>

@@ -1,3 +1,5 @@
+export const GOOGLE_MAP_API_KEY = process.env.EXPO_PUBLIC_GOOGLE_MAP_KEY;
+
 export const colors = {
     primary50: '#cfeffd',
     primary100: '#a0defb',

@@ -8,7 +8,6 @@ const styles = StyleSheet.create({
     },
     label: {
         fontWeight: 'bold',
-        marginBottom: 4,
         color: colors.primary500
     },
     input: {
