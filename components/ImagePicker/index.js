@@ -7,7 +7,7 @@ import PickerPreview from '../PickerPreview';
 import CustomButton, {btnTypes} from '../ui/CustomButton';
 import styles from './styles';
 
-const ImagePicker = () => {
+const ImagePicker = ({onImagePicked}) => {
     const [cameraPermission, requestPermission] = useCameraPermissions();
     const [imageUri, setImageUri] = useState();
 
@@ -17,7 +17,12 @@ const ImagePicker = () => {
             return;
         }
         const image = await launchCameraAsync({allowsEditing: true, aspect: [16, 9], quality: 0.5});
-        !image?.canceled && setImageUri(image?.assets[0]?.uri);
+
+        if (!image?.canceled) {
+            const res = image?.assets[0]?.uri;
+            setImageUri(res);
+            onImagePicked(res);
+        }
     };
 
     return (

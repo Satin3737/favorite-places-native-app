@@ -1,7 +1,7 @@
 import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
-    screen: {
+    map: {
         flex: 1
     }
 });

@@ -4,6 +4,7 @@ import IconButton from '../components/ui/IconButton';
 import {colors} from '../const';
 import AddPlace from '../screens/AddPlace';
 import AllPlaces from '../screens/AllPlaces';
+import PlacesMap from '../screens/PlacesMap';
 
 const Stack = createNativeStackNavigator();
 
@@ -36,6 +37,7 @@ const Navigation = () => {
                     component={AddPlace}
                     options={{title: 'New Favorite Place'}}
                 />
+                <Stack.Screen name={'placesMap'} component={PlacesMap} options={{title: 'Add place'}} />
             </Stack.Navigator>
         </NavigationContainer>
     );

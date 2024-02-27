@@ -1,5 +1,6 @@
+import {useNavigation, useRoute} from '@react-navigation/native';
 import {getCurrentPositionAsync, useForegroundPermissions} from 'expo-location';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {View} from 'react-native';
 import {colors} from '../../const';
 import {verifyPermissions} from '../../util/helper';
@@ -8,9 +9,11 @@ import PickerPreview from '../PickerPreview';
 import CustomButton, {btnTypes} from '../ui/CustomButton';
 import styles from './styles';
 
-const ImagePicker = () => {
+const LocationPicker = ({onLocationPicked}) => {
     const [locationPermission, requestPermission] = useForegroundPermissions();
     const [pickedLocation, setPickedLocation] = useState(null);
+    const {navigate} = useNavigation();
+    const {params} = useRoute();
 
     const getLocationHandler = async () => {
         const hasPermissions = await verifyPermissions(locationPermission, requestPermission, 'location');
@@ -25,7 +28,22 @@ const ImagePicker = () => {
         });
     };
 
-    const pickOnMapHandler = () => {};
+    const pickOnMapHandler = () => {
+        navigate('placesMap');
+    };
+
+    useEffect(() => {
+        if (!!params) {
+            setPickedLocation({
+                lat: params.selectedLocation.latitude,
+                lng: params.selectedLocation.longitude
+            });
+        }
+    }, [params]);
+
+    useEffect(() => {
+        onLocationPicked(pickedLocation);
+    }, [onLocationPicked, pickedLocation]);
 
     return (
         <View>
@@ -52,4 +70,4 @@ const ImagePicker = () => {
     );
 };
 
-export default ImagePicker;
+export default LocationPicker;
