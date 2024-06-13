@@ -4,7 +4,7 @@ import {useEffect, useState} from 'react';
 import {View} from 'react-native';
 import {colors} from '../../const';
 import {verifyPermissions} from '../../util/helper';
-import {getMapPreviewUri} from '../../util/location';
+import {getAddressFromApi, getMapPreviewUri} from '../../util/location';
 import PickerPreview from '../PickerPreview';
 import CustomButton, {btnTypes} from '../ui/CustomButton';
 import styles from './styles';
@@ -42,7 +42,14 @@ const LocationPicker = ({onLocationPicked}) => {
     }, [params]);
 
     useEffect(() => {
-        onLocationPicked(pickedLocation);
+        const handleLocation = async () => {
+            if (!!pickedLocation) {
+                const address = await getAddressFromApi(pickedLocation.lat, pickedLocation.lng);
+                onLocationPicked({...pickedLocation, address});
+            }
+        };
+
+        handleLocation().then();
     }, [onLocationPicked, pickedLocation]);
 
     return (

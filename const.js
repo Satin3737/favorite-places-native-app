@@ -1,3 +1,4 @@
+export const GOOGLE_MAP_API = 'https://maps.googleapis.com/maps/api';
 export const GOOGLE_MAP_API_KEY = process.env.EXPO_PUBLIC_GOOGLE_MAP_KEY;
 
 export const colors = {
