@@ -1,6 +1,6 @@
 import {useCallback, useState} from 'react';
 import {ScrollView, Text, TextInput, View} from 'react-native';
-import {Place} from '../../models/places';
+import {Place} from '../../models/Places';
 import ImagePicker from '../ImagePicker';
 import LocationPicker from '../LocationPicker';
 import CustomButton from '../ui/CustomButton';
@@ -14,6 +14,10 @@ const PlaceForm = ({createPlaceHandler = () => {}}) => {
     const changeTitleHandler = value => setTitleValue(value);
 
     const onSubmitHandler = () => {
+        if (!titleValue || !pickedImage || !pickedLocation) {
+            return;
+        }
+
         createPlaceHandler(new Place(titleValue, pickedImage, pickedLocation));
     };
 
